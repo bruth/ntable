@@ -26,11 +26,15 @@ func (s *memStore) Get(key []byte) ([]byte, error) {
 
 func (s *memStore) Del(key []byte) error {
 	s.mux.Lock()
+	if _, ok := s.store[string(key)]; !ok {
+		return ErrNotFound
+	}
 	delete(s.store, string(key))
 	s.mux.Unlock()
 	return nil
 }
 
+// NewMemStore initialize an in-memory store.
 func NewMemStore() Store {
 	return &memStore{
 		store: make(map[string][]byte),
