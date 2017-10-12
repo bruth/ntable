@@ -44,7 +44,7 @@ func main() {
 	t := &ntable.Table{
 		Conn:    conn,
 		Channel: "users",
-    // Takes a message, derives the key and value and updates the store.
+		// Takes a message, derives the key and value and updates the store.
 		Handle: func(s ntable.Store, m *stan.Msg) {
 			var r Record
 			json.Unmarshal(m.Data, &r)
