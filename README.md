@@ -1,6 +1,7 @@
 # NTable
 
-[![GoDoc](https://godoc.org/github.com/bruth/ntable?status.svg)](http://godoc.org/github.com/bruth/ntable)
+[![License MIT](https://img.shields.io/badge/License-MIT-blue.svg)](http://opensource.org/licenses/MIT)
+[![Go Report Card](https://goreportcard.com/badge/github.com/bruth/ntable)](https://goreportcard.com/report/github.com/bruth/ntable) [![Build Status](https://travis-ci.org/bruth/ntable.svg?branch=master)](http://travis-ci.org/bruth/ntable) [![GoDoc](https://godoc.org/github.com/bruth/ntable?status.svg)](http://godoc.org/github.com/bruth/ntable)
 
 A table data structure for NATS Streaming.
 
