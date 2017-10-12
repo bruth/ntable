@@ -6,8 +6,10 @@ import (
 	"github.com/nats-io/go-nats-streaming"
 )
 
+// ErrNotFound is returned when a key is not found in the store.
 var ErrNotFound = errors.New("not found")
 
+// Store is an interface used by Table to get and set the data.
 type Store interface {
 	Set(key, val []byte) error
 	Get(key []byte) ([]byte, error)
@@ -17,6 +19,8 @@ type Store interface {
 // HandleFunc takes a store and the message and performs the update to the table.
 type HandleFunc func(Store, *stan.Msg)
 
+// Table maintains an internal lookup table based on key-value pairs derived
+// from the target channel.
 type Table struct {
 	Conn        stan.Conn
 	Channel     string
@@ -27,6 +31,7 @@ type Table struct {
 	sub stan.Subscription
 }
 
+// Open opens a connection to the channel and begins handling messages.
 func (t *Table) Open() error {
 	if t.sub != nil {
 		return errors.New("Table already open")
@@ -64,14 +69,18 @@ func (t *Table) Open() error {
 	return nil
 }
 
+// Close closes the connection with the channel.
 func (t *Table) Close() error {
 	return t.sub.Close()
 }
 
+// Unsubscribe closes the connection with the channel and removes
+// the durable subscription if used.
 func (t *Table) Unsubscribe() error {
 	return t.sub.Unsubscribe()
 }
 
+// Get gets a value from the table given a key.
 func (t *Table) Get(key []byte) ([]byte, error) {
 	return t.Store.Get(key)
 }
